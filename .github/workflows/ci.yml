@@ -55,7 +55,8 @@ jobs:
           tag_name: v${{steps.version.outputs.value}}
           release_name: v${{steps.version.outputs.value}}
           body: ${{steps.releasedraft.outputs.content}} # ${{steps.description.outputs.content}}
-          draft: true # ${{steps.releasedraft.outputs.content}}
+          # ${{steps.releasedraft.outputs.content}}
+          draft: false
           prerelease: false
       
       - name: 上传文件
