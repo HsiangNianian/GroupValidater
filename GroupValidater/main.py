@@ -1,22 +1,47 @@
 import OlivOS
+import random
 import GroupValidater
-from draw import drawing
+from PIL import Image, ImageDraw, ImageFont
 
+TMP_PATH = 'plugin/data/GroupValidater/tmp.jpg'
+
+def draw():
+  def random_color():
+      return random.randint(64, 255), random.randint(64, 255), random.randint(64, 255)
+
+
+  def random_color2():
+      return random.randint(32, 127), random.randint(32, 127), random.randint(32, 127)
+
+
+  def random_char():
+      return chr(random.randint(65, 90))
+
+
+  # 创建图像，默认为黑色，可以修改参数color=(r, g, b)的值来赋予颜色
+  img = Image.new('RGB', (240, 60))
+  # 创建字体，使用系统自带的ttf字体文件
+  img_font = ImageFont.truetype(r'C:\Windows\Fonts\arial.ttf', 40)
+  # 生成ImageDraw对象，能对图像进行注释，修描等操作
+  draw = ImageDraw.Draw(img)
+  for x in range(240):
+      for y in range(60):
+          draw.point((x, y), fill=random_color())
+
+  for k in range(4):
+      draw.text((60 * k + 10, 10), random_char(), font=img_font, fill=random_color2())
+
+#   img.show()
+  img.save(TMP_PATH)
+
+    
 class Event(object):
     def init(plugin_event, Proc):
         pass
     
-    def private_message(plugin_event, Proc):
-        drawing(plugin_event, Proc)
-
-    def init_after(plugin_event, Proc):
-        pass
-
-    def group_message(plugin_event, Proc):
-        drawing(plugin_event, Proc)
-
-    def poke(plugin_event, Proc):
-        pass
+    def group_member_increase(plugin_event, Proc):
+        drawing()
+        plugin_event.reply('欢迎[CQ:at,qq='+str(plugin_event.data.user_id)+']，你有1分钟时间输入以下验证码进行验证：[CQ:image,file=///'+TMP_PATH+']')
 
     def save(plugin_event, Proc):
         pass
