@@ -6,17 +6,8 @@ class Event(object):
     def init(plugin_event, Proc):
         pass
     
-    def private_message(plugin_event, Proc):
-        drawing(plugin_event, Proc)
-
-    def init_after(plugin_event, Proc):
-        pass
-
-    def group_message(plugin_event, Proc):
-        drawing(plugin_event, Proc)
-
-    def poke(plugin_event, Proc):
-        pass
+    def group_member_increase(plugin_event, Proc):
+        drawing(plugin_event,Proc)
 
     def save(plugin_event, Proc):
         pass
