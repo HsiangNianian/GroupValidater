@@ -4,13 +4,13 @@ from draw import drawing
 
 class Event(object):
     def init(plugin_event, Proc):
-      pass
-
+        pass
+    
     def private_message(plugin_event, Proc):
         drawing(plugin_event, Proc)
 
     def init_after(plugin_event, Proc):
-       pass
+        pass
 
     def group_message(plugin_event, Proc):
         drawing(plugin_event, Proc)
