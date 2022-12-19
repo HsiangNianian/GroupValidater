@@ -27,43 +27,43 @@ jobs:
           name: Artifacts
           path: ${{ env.PACK_NAME }}.opk
 # ----------------------------------------------#
-      # - name: 读取当前版本号
-      #   id: version
-      #   uses: ashley-taylor/read-json-property-action@v1.0
+      - name: 读取当前版本号
+        id: version
+        uses: ashley-taylor/read-json-property-action@v1.0
+        with:
+          path: ./${{ env.PACK_NAME }}/app.json
+          property: version
+
+      - name: Release Drafter
+        id: releasedraft
+        uses: toolmantim/release-drafter@v5.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: 读取描述文件
+      #   id: description
+      #   uses: juliangruber/read-file-action@v1
       #   with:
-      #     path: ./${{ env.PACK_NAME }}/app.json
-      #     property: version
+      #     path: ./description.txt
 
-      # - name: Release Drafter
-      #   id: releasedraft
-      #   uses: toolmantim/release-drafter@v5.2.0
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # # - name: 读取描述文件
-      # #   id: description
-      # #   uses: juliangruber/read-file-action@v1
-      # #   with:
-      # #     path: ./description.txt
-
-      # - name: 创建GitHub Release
-      #   id: create_release
-      #   uses: actions/create-release@latest
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: v${{steps.version.outputs.value}}
-      #     release_name: v${{steps.version.outputs.value}}
-      #     body: ${{steps.releasedraft.outputs.content}} # ${{steps.description.outputs.content}}
-      #     draft: true # ${{steps.releasedraft.outputs.content}}
-      #     prerelease: false
+      - name: 创建GitHub Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{steps.version.outputs.value}}
+          release_name: v${{steps.version.outputs.value}}
+          body: ${{steps.releasedraft.outputs.content}} # ${{steps.description.outputs.content}}
+          draft: true # ${{steps.releasedraft.outputs.content}}
+          prerelease: false
       
-      # - name: 上传文件
-      #   uses: actions/upload-release-asset@v1.0.1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }} 
-      #     asset_path: ${{ env.PACK_NAME }}.opk
-      #     asset_name: ${{ env.PACK_NAME }}.opk
-      #     asset_content_type: application/zip
+      - name: 上传文件
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          asset_path: ${{ env.PACK_NAME }}.opk
+          asset_name: ${{ env.PACK_NAME }}.opk
+          asset_content_type: application/zip
