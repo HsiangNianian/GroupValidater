@@ -4,7 +4,7 @@
     "namespace": "GroupValidater",
     "info": "简介:\n简单的入群验证输入验证码插件",
     "priority": 30000,
-    "version": "0.0.1",
+    "version": "0.0.2",
     "svn": 1,
     "compatible_svn": 101,
     "message_mode": "olivos_string",
