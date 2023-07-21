@@ -36,20 +36,20 @@ def draw():
 
     
 class Event(object):
-    def init(plugin_event, Proc):
-        pass
+    def init(self, Proc):
+      pass
     
-    def group_member_increase(plugin_event, Proc):
-        drawing()
-        plugin_event.reply('欢迎[CQ:at,qq='+str(plugin_event.data.user_id)+']，你有1分钟时间输入以下验证码进行验证：[CQ:image,file=///'+TMP_PATH+']')
+    def group_member_increase(self, Proc):
+      drawing()
+      self.reply(
+          f'欢迎[CQ:at,qq={str(self.data.user_id)}]，你有1分钟时间输入以下验证码进行验证：[CQ:image,file=///{TMP_PATH}]'
+      )
 
-    def save(plugin_event, Proc):
-        pass
+    def save(self, Proc):
+      pass
 
-    def menu(plugin_event, Proc):
-        if plugin_event.data.namespace == 'GroupValidater':  # type: ignore
-            if plugin_event.data.event == 'GroupValidater_Menu_Config':  # type: ignore
-                logg("有笨蛋打开了配置")
-            elif plugin_event.data.event == 'GroupValidater_Menu_About':  # type: ignore
-                pass
+    def menu(self, Proc):
+      if self.data.namespace == 'GroupValidater':# type: ignore
+        if self.data.event == 'GroupValidater_Menu_Config':  # type: ignore
+          logg("有笨蛋打开了配置")
               
